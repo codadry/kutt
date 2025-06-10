@@ -1,4 +1,3 @@
-````markdown
 # 🔗 Kutt - Acortador de URLs en Producción con Docker
 
 **Kutt** es una aplicación web de código abierto para **acortar URLs**, similar a servicios como Bitly o TinyURL, pero que puedes **hospedar tú mismo**. Está construida con Node.js, MongoDB y Redis, y es ideal para quienes desean tener **control total sobre sus enlaces cortos**.
