@@ -1,0 +1,44 @@
+services:
+  mongodb:
+    image: mongo:5
+    container_name: kutt_mongo
+    restart: always
+    volumes:
+      - ./mongodb_data:/data/db
+    networks:
+      - general-net
+
+  redis:
+    image: redis:alpine
+    container_name: kutt_redis
+    restart: always
+    networks:
+      - general-net
+
+  kutt:
+    image: kutt/kutt
+    container_name: kutt-app
+    restart: always
+    #ports:
+     # - "3000:3000"  #Descomenta esta línea si quieres exponer el puerto 3000; util para acceder a la aplicación Kutt
+    environment:
+      DEFAULT_DOMAIN: ${DEFAULT_DOMAIN}
+      DB_URI: ${DB_URI}
+      REDIS_URL: ${REDIS_URL}
+      ADMIN_EMAILS: ${ADMIN_EMAILS}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_SECURE: ${MAIL_SECURE}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASS: ${MAIL_PASS}
+      JWT_SECRET: ${JWT_SECRET}
+    networks:
+      - general-net
+    depends_on:
+      - mongodb
+      - redis
+
+networks:
+  general-net:
+    external: true  # Usa la red ya creada
